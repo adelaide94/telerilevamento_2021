@@ -18,7 +18,7 @@ plot(p224r63_2011, col= cl)
 # DAY 2
 # cambio di colore -> new
 cl <- colorRampPalette(c("blue","green"," grey", "red","magenta","yellow")) (100)
-plot(p224r63_2011, col= cl)
+plot(p224r63_2011,col= cls)
 
 #DAY 3
 # B1: blu
@@ -44,4 +44,44 @@ par(mfrow=c(1,2))
 plot(p224r63_2011$B1_sre)
 plot(p224r63_2011$B2_sre)
 
- 
+# 
+ par(mfrow=c(2,2))
+clb <- colorRampPalette(c('dark blue','blue','light blue'))(100) # 
+plot(p224r63_2011$B1_sre, col=clb)
+
+clg <- colorRampPalette(c('dark green','green','light green'))(100) # 
+plot(p224r63_2011$B2_sre, col=clg)
+
+clr <- colorRampPalette(c('dark red','red','pink'))(100) # 
+plot(p224r63_2011$B3_sre, col=clr)
+
+# DAY 4
+# RGB red green blu
+
+#strech
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+# associo la banda del rosso all'infrarosso per evidenziare la riflettanza nel rosso della vegetazione   
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+# inverto 3 e 4
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
+# exercise :  fare un multiframe 2x2 con le precedenti codici
+pdf("il_mio_primo_pdf_con_R.pdf")
+par(mfrow=c(2,2))
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
+
+# uso la funzione per uno streth non lin ma hit che da una magggiore pendenza allo stretch dando maggiore dettaglio all'immagine
+plotRGB(p224r63_2011, r=3, g=4c, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist")
+
+# faccio un par multiframe, con falsi colore e con histagram strech
+par(mfrow=c(3,1))
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist")
+
+
+
