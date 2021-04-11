@@ -111,6 +111,6 @@ par(mfrow=c(2,2))
 plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
 plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist")
-plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")
-    
-
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")##
+# UNIRE PIù PDF DALLA STESSA CARTELLA    
+bash scripting:  pdftk *.pdf  cat output mergedfile.pdf
