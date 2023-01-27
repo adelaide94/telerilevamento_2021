@@ -1,7 +1,7 @@
 # Il mio primo codice in R per il telerilevamento
 install.packages("raster") # installo il pacchetto raster, il pacchetto è esterno ad R
 library(raster) #richiamo il pacchetto installato
-setwd("/Users/symon/lab/") # indicazione cartella di lavoro
+setwd("C:/lab") # indicazione cartella di lavoro
 
 # Importo l'immagine satellitare e la visualizzo
 p224r63_2011 <- brick("p224r63_2011_masked.grd")
