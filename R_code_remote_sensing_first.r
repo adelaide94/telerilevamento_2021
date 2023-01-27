@@ -1,5 +1,5 @@
 # Il mio primo codice in R per il telerilevamento
-install.packages("raster") # installo il pacchetto raster, il pacchetto è esterno ad R
+install.packages("raster") #installo il pacchetto raster, il pacchetto è esterno ad R
 library(raster) #richiamo il pacchetto installato
 setwd("C:/lab") # indicazione cartella di lavoro
 
