@@ -1,116 +1,148 @@
 # Il mio primo codice in R per il telerilevamento
-setwd("C:/lab/") 
+install.packages("raster") # installo il pacchetto raster, il pacchetto è esterno ad R
+library(raster) #richiamo il pacchetto installato
+setwd("/Users/benedettabellini/lab/") # indicazione cartella di lavoro
 
-#install.packages("raster" )
-library(raster)
-
-#uso la funzione brick  
+# Importo l'immagine satellitare e la visualizzo
 p224r63_2011 <- brick("p224r63_2011_masked.grd")
-p224r63_2011
-
 plot(p224r63_2011)
 
-#cambio di colore della legenda
-cl <- colorRampPalette(c("black","grey","light grey")) (100)
+### Day 2 
+# colour change
+cl <- colorRampPalette(c("black","grey","light grey"))(100) #creo una scala di colori
+plot(p224r63_2011, col=cl) # visualizzo l'immagine con la scala di colori appena creata
 
-plot(p224r63_2011, col= cl)
+# colour change -> new 
+cls <- colorRampPalette(c("blue","red","magenta","pink","white"))(100)
+plot(p224r63_2011, col=cls)
 
-# DAY 2
-# cambio di colore -> new
-cl <- colorRampPalette(c("blue","green"," grey", "red","magenta","yellow")) (100)
-plot(p224r63_2011,col= cls)
-
-#DAY 3
+### Day 3
+# Bande Landsat
 # B1: blu
 # B2: verde
 # B3: rosso
 # B4: infrarosso vicino
 # B5: infrarosso medio
 # B6: infrarosso termico
-# B7: infrarosso medio
+# B7: infrarosso medio 
 
-#dev.off ripulisce la finestra grafica
+# dev.off will clean the current graph
 dev.off()
 
-# plotto solo la banda b1 che ho legato all immagine
+# plot only band 1
 plot(p224r63_2011$B1_sre)
 
-# plotto la banda1 con una palette
-cl <- colorRampPalette(c("blue","green"," grey", "red","magenta","yellow")) (100)
-plot(p224r63_2011$B1_sre, col= cl)
+# plot band 1 with a predefined colorRampPalette 
+clt <- colorRampPalette(c('purple','orange','pink','white'))(100)
+plot(p224r63_2011$B1_sre, col=clt)
 
-# plotto due bande affiancate con la funzione par
-par(mfrow=c(1,2))
+dev.off()
+
+# par(mfrow...) prepara lo schermo a mettere le immagini in un dato numero di righe e colonne
+# par(mfcol...) se vogliamo usare prima il numero di colonne
+par(mfrow=c(1,2)) # creo una finestra grafica con una riga e due colonne 
+plot(p224r63_2011$B1_sre)
+plot(p224r63_2011$B2_sre)
+# 2 righe e 1 colonna
+par(mfrow=c(2,1))
 plot(p224r63_2011$B1_sre)
 plot(p224r63_2011$B2_sre)
 
-# 
- par(mfrow=c(2,2))
-clb <- colorRampPalette(c('dark blue','blue','light blue'))(100) # 
+# Plottiamo le 4 immagini di Landsat in 4 righe e 1 colonna
+par(mfrow=c(4,1))
+plot(p224r63_2011$B1_sre)
+plot(p224r63_2011$B2_sre)
+plot(p224r63_2011$B3_sre)
+plot(p224r63_2011$B4_sre)
+
+# a quadrat of bands
+par(mfrow=c(2,2))
+plot(p224r63_2011$B1_sre)
+plot(p224r63_2011$B2_sre)
+plot(p224r63_2011$B3_sre)
+plot(p224r63_2011$B4_sre)
+
+# per ogni banda stabiliamo una colorRampPalette
+par(mfrow=c(2,2))
+
+clb <- colorRampPalette(c('dark blue','blue','light blue'))(100)
 plot(p224r63_2011$B1_sre, col=clb)
 
-clg <- colorRampPalette(c('dark green','green','light green'))(100) # 
+clg <- colorRampPalette(c('dark green','green','light green'))(100)
 plot(p224r63_2011$B2_sre, col=clg)
 
-clr <- colorRampPalette(c('dark red','red','pink'))(100) # 
+clr <- colorRampPalette(c('dark red','red','pink'))(100)
 plot(p224r63_2011$B3_sre, col=clr)
 
-# DAY 4
-# RGB red green blu
+clnir <- colorRampPalette(c('red','orange','yellow'))(100)
+plot(p224r63_2011$B4_sre, col=clnir)
 
-#strech
-plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
-# associo la banda del rosso all'infrarosso per evidenziare la riflettanza nel rosso della vegetazione   
-plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
-# inverto 3 e 4
+### Day 4
+# Visualizing data by RGB plotting
+
+# Bande Landsat
+# B1: blu
+# B2: verde
+# B3: rosso
+# B4: infrarosso vicino
+# B5: infrarosso medio
+# B6: infrarosso termico
+# B7: infrarosso medio 
+
+# RGB permette di visualizzare tre bande per volta 
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin") # alla componenre R associo la banda del rosso, alla G associo banda del verde e B la banda del blu
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin") # alla componente R associo la banda 4 cioè NIR
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
-# exercise :  fare un multiframe 2x2 con le precedenti codici
-pdf("il_mio_primo_pdf_con_R.pdf")
+
+# mount a 2x2 multiframe
+pdf("il_mio_primo_pdf_con_R.pdf") #crea un pdf che viene salvato nella cartella di lavoro
 par(mfrow=c(2,2))
 plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
+dev.off()
 
-# uso la funzione per uno streth non lin ma hit che da una magggiore pendenza allo stretch dando maggiore dettaglio all'immagine
+# use stretch linear
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+# use stretch histogram
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist")
-pl
-# faccio un par multiframe, con falsi colore e con histagram strech
+
+# par natural colours, false colours and false colours with histogram stretching
 par(mfrow=c(3,1))
-plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")plotRGB(p224r63_1988, r=3, g=2, b=1, stretch="Lin")
-
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist")
 
-# DAY 5
-#Multitemporale setDEV
-p224r63_1988 <- brick("p224r63_1988_masked.grd")
-plot(p224r63_1988)
+# Installo il pacchetto RStoolbox
+install.packages("RStoolbox")
+# Richiamo pacchetto installato
+library(RStoolbox)
 
-par(mfrow=c(3,1 ))
-plotRGB(p224r63_1988, r=3, g=2, b=1, stretch="Lin")
-plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
+# Installo il pacchetto ggplot2
+install.packages("ggplot2")
+library(ggplot2)
 
-# esercizio di confronto tra amazzonia 2011 e 1988 con sistema RGD con banda dell'infrarosso
+### DAY 5
+# Multitemporal set
+p224r63_1988 <- brick("p224r63_1988_masked.grd") # importo l'immagine satellitare del 1988 e le assegno un nome
+p224r63_1998 
+
+plot(p224r63_1988) # visualizzazione grafica delle singole bande
+plotRGB(p224r63_1988, r=3, g=2, b=1, stretch="Lin") # uso per la visualizzazione tre bande quella del rosso, del verde e del blu
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin") # associo NIR alla componente red 
+
+# Visualizzo in una finestra 2x1 l'immagine satellitare del 2011 e del 1988
 par(mfrow=c(2,1))
-plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
-plotRGB(p224r63_2011, r=4,
-        g=3, b=2, stretch="Lin")???
-
-# es di confronto MULTITEMP tra amazzonia 2011 e 1988 con sistema RGD con banda dell'infrarosso con gli strecth par ed hista
-library(raster)
-setwd("C:/lab/")
-
-p224r63_1988 <- brick("p224r63_1988_masked.grd")
-p224r63_2011 <- brick("p224r63_2011_masked.grd")
-
-pdf("multitemp.pdf")
-par(mfrow=c(2,2))
-plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin") 
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
-plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist")
-plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")##
-# UNIRE PIù PDF DALLA STESSA CARTELLA    
-bash scripting:  pdftk *.pdf  cat output mergedfile.pdf
+
+# creo un pdf
+pdf("multitemp.pdf")
+par(mfrow=c(2,2)) 
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin") # uso stretch lineare
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist") # use histogram stretching
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")
+dev.off()
