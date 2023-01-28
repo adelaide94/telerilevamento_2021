@@ -26,13 +26,13 @@ plot(p224r63_2011, col=cls)
 # B6: infrarosso termico
 # B7: infrarosso medio 
 
-# dev.off will clean the current graph
+# dev.off ripulisce il comando della finestra grafica
 dev.off()
 
-# plot only band 1
+# plotta solo la banda 1 
 plot(p224r63_2011$B1_sre)
 
-# plot band 1 with a predefined colorRampPalette 
+# plotta solo la banda 1 attraverso la funzione "colorRampPalette"
 clt <- colorRampPalette(c('purple','orange','pink','white'))(100)
 plot(p224r63_2011$B1_sre, col=clt)
 
@@ -55,7 +55,7 @@ plot(p224r63_2011$B2_sre)
 plot(p224r63_2011$B3_sre)
 plot(p224r63_2011$B4_sre)
 
-# a quadrat of bands
+# Plottiamo le 4 immagini di Landsat in 2 righe e 2 colonna
 par(mfrow=c(2,2))
 plot(p224r63_2011$B1_sre)
 plot(p224r63_2011$B2_sre)
@@ -95,21 +95,22 @@ plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin") # alla componente R associo 
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
 
-# mount a 2x2 multiframe
-pdf("il_mio_primo_pdf_con_R.pdf") #crea un pdf che viene salvato nella cartella di lavoro
+# Plottiamo le 4 immagini 2x2 multiframe
+
 par(mfrow=c(2,2))
 plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
+pdf("il_mio_primo_pdf_con_R.pdf") #crea un pdf che viene salvato nella cartella di lavoro
 dev.off()
 
-# use stretch linear
+# confronto le immegini applicando due strecth differenti- lineare 
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
-# use stretch histogram
+# uso lo stretch histogram ridando l'immagine allargata nel punto medio di pendenza
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist")
 
-# par natural colours, false colours and false colours with histogram stretching
+# affianco con la funzione par l'immagine in colori naturali e strech lineare, immagine con una variazione delle bande del verde e del blu  e l'immagine naturale ma con uno stretch histogram 
 par(mfrow=c(3,1))
 plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
@@ -136,13 +137,13 @@ plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin") # associo NIR alla component
 # Visualizzo in una finestra 2x1 l'immagine satellitare del 2011 e del 1988
 par(mfrow=c(2,1))
 plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin") 
-plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin") #associo l'infrarosso alla componente Red
 
 # creo un pdf
-pdf("multitemp.pdf")
 par(mfrow=c(2,2)) 
 plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin") # uso stretch lineare
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
-plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist") # use histogram stretching
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist") # uso histogram stretching
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")
+pdf("multitemp.pdf")
 dev.off()
