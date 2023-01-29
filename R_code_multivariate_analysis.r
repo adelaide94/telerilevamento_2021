@@ -13,4 +13,4 @@ p224r63_2011 # vedo informazione dell'immagine
 plot(p224r63_2011$B1_sre, p224r63_2011$B2_sre, col="red", pch=19, cex=2) #guardo la correlazione tra le due bande
 
 # Plotto tutte le possibili correlazioni tra tutte le variabili 
-pairs(p224r63_2011) 
+pairs(p224r63_2011
