@@ -64,3 +64,16 @@ plot(vi1, col=cl) # visualizzo gli indici calcolati
 
 vi2 <- spectralIndices(defor2, green=3, red=2, nir=1) # calcolo tutti gli indici
 plot(vi2, col=cl)
+
+# worldwide database del progetto Copernicus per il NDVI dal 1999-2017 di tutto il mondo
+plot(copNDVI)
+
+# trasformo i pixel con i valori dei pixel 253, 254, 255 (rappresentativi di acqua che voglio rimuovere) in NA
+copNDVI <- reclassify(copNDVI, cbind(253:255, NA)) 
+plot(copNDVI)
+
+# richiamo pacchetto rasterVis
+library(rasterVis)
+
+# media dei valori sulle righe e colonne 
+levelplot(copNDVI)
