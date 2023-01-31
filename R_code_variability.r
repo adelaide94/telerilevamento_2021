@@ -36,3 +36,13 @@ plot(ndvimean3, col=clsd) #plotto
 ndvisd13 <- focal(ndvi, w=matrix(1/169,nrow=13,ncol=13), fun=sd) #calcolo devizione standard
 clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow'))(100) #creo scala di colori
 plot(ndvisd13, col=clsd) #plotto
+
+# Uso moving window 5x5
+ndvisd5 <- focal(ndvi, w=matrix(1/25,nrow=5,ncol=5), fun=sd) #calcolo devizione standard
+clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow'))(100) #creo scala di colori
+plot(ndvisd5, col=clsd) #plotto
+
+# PCA analisi componenti principali per i raster
+sentpca <- rasterPCA(sent)
+plot(sentpca$map) # analisi multivariata dell'immagine
+summary(sentpca$model) #PC1 contains 67.3604% of the original information
