@@ -226,13 +226,15 @@ ggplot(spectrals, aes=(x=band)) +
                        
 #PCA - Analisi delle componenti principali
 # pairs fra i deltaNBR e deltaNDVI
-deltaNDVI <-resample(difndvi,deltaNBR,method="bilinear") #ricampiono il ndvi2013 secondo le dim del 2021, con metodo bilineare
+deltaNDVI <-resample(difndvi,deltaNBR,method="bilinear") #ricampiono il ndvi2019 secondo le dim del 2021, con metodo bilineare
 indici <- stack(deltaNDVI,deltaNBR) # creo una lista con la funzione <stack> contenente i due indici calcolati precedentemente
 plot(indici) # visualizzo gli oggetti nella lista
 pairs(indici) # 55% di correlazione 
+                       
 #pca 
 sardegnaindpca <- rasterPCA(indici)
 summary(sardegnaindpca$model) # faccio la summary del modello e vedo 81% di correlazione
+                       
 plot(sardegnaindpca$map) # plotto la mappa
 pca1norm <- sardegnaindpca$map$PC1/maxValue(sardegnaindpca$map$PC1) # associo ad una variabile la mappa della PC1 (che spiega l'88% dei dati) normalizzata al suo valore massimo
 plot(pca1norm) #plotto la mappa PC1 normalizzata
